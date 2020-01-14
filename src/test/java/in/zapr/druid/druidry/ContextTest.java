@@ -19,6 +19,7 @@ package in.zapr.druid.druidry;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -26,6 +27,9 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ContextTest {
 
@@ -50,7 +54,7 @@ public class ContextTest {
     @Test
     public void testAllFields() throws JsonProcessingException, JSONException {
         Context context = Context.builder()
-                .timeoutInMilliSeconds(3141)
+                .timeoutInMilliSeconds(3141L)
                 .priority(1)
                 .queryId("How are you?")
                 .useCache(true)
@@ -62,6 +66,7 @@ public class ContextTest {
                 .maxResults(1611)
                 .maxIntermediateRows(1103)
                 .groupByIsSingleThreaded(true)
+                .zeroFilledDimValues(Arrays.asList("1","2"))
                 .build();
 
         JSONObject jsonObject = new JSONObject();
@@ -77,6 +82,7 @@ public class ContextTest {
         jsonObject.put("maxResults", 1611);
         jsonObject.put("maxIntermediateRows", 1103);
         jsonObject.put("groupByIsSingleThreaded", true);
+        jsonObject.put("zeroFilledDimValues", new JSONArray(Arrays.asList("1", "2")));
 
         String actualJSON = objectMapper.writeValueAsString(context);
         String expectedJSON = jsonObject.toString();
@@ -86,7 +92,7 @@ public class ContextTest {
     @Test
     public void testContextEquals() {
         Context context1 = Context.builder()
-                .timeoutInMilliSeconds(3141)
+                .timeoutInMilliSeconds(3141L)
                 .priority(1)
                 .queryId("How are you?")
                 .useCache(true)
@@ -101,7 +107,7 @@ public class ContextTest {
                 .build();
 
         Context context2 = Context.builder()
-                .timeoutInMilliSeconds(3141)
+                .timeoutInMilliSeconds(3141L)
                 .priority(1)
                 .queryId("How are you?")
                 .useCache(true)
@@ -121,7 +127,7 @@ public class ContextTest {
     @Test
     public void testContextUnequals() {
         Context context1 = Context.builder()
-                .timeoutInMilliSeconds(3141)
+                .timeoutInMilliSeconds(3141L)
                 .priority(1)
                 .queryId("How are you?")
                 .useCache(true)
@@ -136,7 +142,7 @@ public class ContextTest {
                 .build();
 
         Context context2 = Context.builder()
-                .timeoutInMilliSeconds(3141)
+                .timeoutInMilliSeconds(3141L)
                 .priority(1)
                 .queryId("How are you?")
                 .useCache(true)

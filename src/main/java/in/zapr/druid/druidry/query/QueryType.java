@@ -28,7 +28,8 @@ public enum QueryType {
     DATASOURCE_METADATA("dataSourceMetadata"),
     SEARCH("search"),
     SCAN("scan"),
-    SELECT("select");
+    SELECT("select"),
+    ZERO_FILLED_TOPN("zeroFilledTopN");
 
     private String value;
 

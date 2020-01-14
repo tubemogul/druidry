@@ -24,6 +24,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Builder
 @Setter
 @Getter
@@ -34,7 +36,7 @@ public class Context {
     // TODO: Value validations. Like timeout > 0
 
     @JsonProperty("timeout")
-    private Integer timeoutInMilliSeconds; // TODO: Should it be long??
+    private Long timeoutInMilliSeconds;
     private Integer priority;
     private String queryId;
     private Boolean useCache;
@@ -52,8 +54,9 @@ public class Context {
     private Boolean applyLimitPushDown;
     private Boolean forceLimitPushDown;
 
+    private List<String> zeroFilledDimValues;
 
-    public Integer getTimeoutInMilliSeconds() {
+    public Long getTimeoutInMilliSeconds() {
         return (timeoutInMilliSeconds != null && timeoutInMilliSeconds > 0) ?
                 timeoutInMilliSeconds : null;
     }
